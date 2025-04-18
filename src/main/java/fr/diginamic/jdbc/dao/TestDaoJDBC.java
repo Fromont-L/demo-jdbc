@@ -7,11 +7,15 @@ import java.util.List;
 public class TestDaoJDBC {
     public static void main(String[] args) {
 
-        FournisseurDao dao = new FournisseurDaoJDBC();
+        FournisseurDao dao = new FournisseurDaoJDBC2();
         // Ajouter
-        Fournisseur nouveau = new Fournisseur("NOM BIEN VISIBLE");
+        Fournisseur nouveau = new Fournisseur("France de matériaux");
+        // Il n'est pas trié correctement lors de l'affichage
+        Fournisseur nouveau2 = new Fournisseur("L'Espace Création");
         dao.insert(nouveau);
+        dao.insert(nouveau2);
         System.out.println("Fournisseur " + "'" + nouveau.getNom() + "'" + " inséré");
+        System.out.println("Fournisseur " + "'" + nouveau2.getNom() + "'" + " inséré");
 
         // Voir
         System.out.println("\nListe après insertion : \n");
@@ -21,8 +25,8 @@ public class TestDaoJDBC {
         }
 
         // Modifier
-        int modification = dao.update("NOM BIEN VISIBLE", "Thermite");
-        System.out.print("Modification");
+        int modification = dao.update("France de matériaux", "France matériaux");
+        System.out.print("Modification !\n" + modification);
 
         fournisseurs = dao.extraire();
         for (Fournisseur fournisseur : fournisseurs) {
@@ -30,9 +34,11 @@ public class TestDaoJDBC {
         }
 
         // Supprimer
-        Fournisseur aSupprimer = new Fournisseur("Thermite");
+        Fournisseur aSupprimer = new Fournisseur("France matériaux");
+        Fournisseur aSupprimer2 = new Fournisseur("L'espace Création");
         boolean suppr = dao.delete(aSupprimer);
-        System.out.println(suppr);
+        boolean suppr2 = dao.delete(aSupprimer2);
+        System.out.println("Le fournisseur '" + aSupprimer.getNom()  + "' à bien été supprimé ? : " + suppr);
 
 
         // Voir tout
